@@ -49,8 +49,15 @@ const setCurrLyric = type => {
     payload: type,
   };
 };
+const togglePlaying = type => {
+  return {
+    type: 'TOGGLE_PLAYING',
+    payload: type,
+  };
+};
 
 export {
+  togglePlaying,
   setCurrSong,
   setCurrTime,
   setCurrPlayList,

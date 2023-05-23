@@ -71,7 +71,7 @@ function SongItemList({song, playList, navigation}) {
   const [isLoading, setIsloading] = useState(false);
 
   const isPlaying = useSelector(
-    state => state.player.currSong.encodeId === song.encodeId,
+    state => state.player?.currSong?.encodeId === song?.encodeId,
   );
 
   const playSong = song => {

@@ -17,6 +17,7 @@ const color = {
   transparent: '#00000000',
   transparentWhite: 'rgba(255, 255, 255, 0.3)',
   transparentBlack: 'rgba(0, 0, 0, 0.1)',
+  transparentBlackL: 'rgba(0, 0, 0, 0.5)',
 
   gray: '#f6f6f6',
   grayE: '#eeeeee',

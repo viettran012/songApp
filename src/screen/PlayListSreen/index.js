@@ -151,7 +151,7 @@ const PlayListScreenListSheet = memo(() => {
 
   return isLoading ? (
     <Loader content="Đang tải" />
-  ) : playList ? (
+  ) : playList?.song ? (
     <View style={[styles.screenWrapper]}>
       <TextB
         style={[

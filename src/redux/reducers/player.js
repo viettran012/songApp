@@ -6,6 +6,7 @@ const initialState = {
   currTimeSong: {},
   currLyric: {},
   isShowListSheet: false,
+  isPlayingSong: {},
 };
 
 const player = (state = initialState, action) => {
@@ -43,6 +44,18 @@ const player = (state = initialState, action) => {
     case 'SET_CURR_PLAYLIST': {
       const newState = action.payload;
       return {...state, currPlayList: newState};
+    }
+    case 'TOGGLE_PLAYING': {
+      const newState = action.payload;
+      const currPlaying = state.isPlaying;
+      const currSong = state?.currSong;
+      return {
+        ...state,
+        isPlaying: !currPlaying,
+        isPlayingSong: {
+          [currSong?.encodeId]: {isPlaying: !currPlaying, key: Math.random()},
+        },
+      };
     }
     case 'NEXT_SONG': {
       const currSongId = state?.currSong?.encodeId;

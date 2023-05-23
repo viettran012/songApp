@@ -17,6 +17,7 @@ function MainScreen() {
     discoverPageService()
       .then(data => {
         if (data?.result == 1) {
+          console.log('get player init data success');
           const id = data?.data?.data?.items[3].items[0].encodeId;
           playListService(id).then(data => {
             dispatch(setCurrPlayList(data?.data?.data));

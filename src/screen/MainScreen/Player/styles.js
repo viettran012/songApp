@@ -99,9 +99,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    width: '100%',
   },
   songInfoWrapper: {
     marginBottom: 10,
+    width: '100%',
   },
   songInfoTitle: {
     fontSize: 20,
@@ -139,6 +141,44 @@ const styles = StyleSheet.create({
   },
   bgStyle: {
     // paddingVertical: 15,
+  },
+  durationWrapper: {
+    position: 'absolute',
+    backgroundColor: color.transparentBlackL,
+    paddingHorizontal: 15,
+    paddingVertical: 7,
+    borderRadius: 50,
+    top: -50,
+  },
+  durationText: {
+    color: color.white,
+    fontSize: 18,
+  },
+
+  controlArea: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: color.blue,
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    // backgroundColor: color.blue,
+  },
+  actionPlayingIconWrapper: {
+    position: 'absolute',
+    alignItems: 'center',
+    width: '100%',
+  },
+  actionPlayingIcon: {
+    backgroundColor: color.transparentBlackL,
+    height: 60,
+    width: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
   },
 });
 

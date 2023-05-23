@@ -6,7 +6,11 @@ import {IoniconsIcon, FontistoIcon} from '../../../../assets/icons';
 import {TextB, TextBB} from '../../../../components/GlobalComponents';
 import {color} from '../../../../assets/interfaces';
 import {useDispatch} from 'react-redux';
-import {setCurrTime, showListSheet} from '../../../../redux/actions/player';
+import {
+  setCurrTime,
+  showListSheet,
+  togglePlaying,
+} from '../../../../redux/actions/player';
 import {useEffect} from 'react';
 import {getSongInfoService} from '../../../../services/getSongService';
 import Lyric from './Lyric';
@@ -16,7 +20,14 @@ function Action({song}) {
   return (
     <View style={styles.actionWrapperAll}>
       <Lyric songId={song.encodeId} />
-      <View>
+      <Button
+        onPress={() => {
+          dispatch(togglePlaying());
+        }}
+        style={styles.controlArea}>
+        <View></View>
+      </Button>
+      <View style={{alignItems: 'center'}}>
         <View style={styles.songInfoWrapper}>
           <TextBB style={styles.songInfoTitle}>{song?.title}</TextBB>
           <TextB style={styles.artInfoTitle}>{song?.artistsNames}</TextB>

@@ -30,6 +30,8 @@ import {color} from '../../../assets/interfaces';
 import Action from './components/Action';
 import store from '../../../redux/store';
 import ListSheet from './components/ListSheet';
+import MaskedView from '@react-native-masked-view/masked-view';
+import ActionPlayingIcon from './components/ActionPlayingIcon';
 
 function renderItem({item, index}) {
   const song = item;
@@ -49,11 +51,13 @@ function renderItem({item, index}) {
             style={styles.songThumbnail}
           />
         </View>
+
         <LinearGradient
           colors={gradientGroup.blackWhiteBlack}
           style={styles.maskScreen}
         />
         <Action song={song} />
+        <ActionPlayingIcon song={song} />
       </ImageBackground>
     </View>
   );
@@ -133,7 +137,6 @@ function Player() {
       dispatch(setIsPlayerPage(false));
     };
   });
-
   return (
     <>
       <DefaultLayout
