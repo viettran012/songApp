@@ -12,12 +12,15 @@ function DefaultLayout({
   children,
   header,
   gradient,
+  gradientId = 'discover',
   isFullScreen,
   isChangeHeaderOpacity,
   isBackButton,
   navigation,
   scrollPageEvent,
   scrollViewRef,
+  rightButton,
+  onRightButtonPress,
 }) {
   const dispatch = useDispatch();
   const [gradientValue, setGradientValue] = useState(99);
@@ -49,7 +52,7 @@ function DefaultLayout({
       angle={165}
       colors={
         gradient
-          ? gradientGroup.discover(gradientValue)
+          ? gradientGroup[gradientId](gradientValue, gradientId)
           : [`${color.transparent}`, `${color.transparent}`]
       }
       style={[styles.layoutStyle]}>
@@ -66,6 +69,17 @@ function DefaultLayout({
           />
         </Button>
       ) : null}
+
+      {rightButton ? (
+        <Button
+          underlayColor={true}
+          onPress={onRightButtonPress}
+          round={true}
+          style={styles.headerIconRight}>
+          {rightButton}
+        </Button>
+      ) : null}
+
       <View
         style={[
           styles.headerWrapper,
@@ -125,6 +139,20 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: STATUS_BAR_HEIGHT,
     left: 5,
+    zIndex: 100,
+    elevation: 100,
+    zIndex: 600,
+    elevation: 600,
+  },
+  headerIconRight: {
+    height: 53,
+    width: 53,
+    // backgroundColor: color.transparentBlack,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: STATUS_BAR_HEIGHT,
+    right: 5,
     zIndex: 100,
     elevation: 100,
     zIndex: 600,

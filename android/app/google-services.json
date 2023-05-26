@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "856527882200",
+    "project_id": "solfive-71524",
+    "storage_bucket": "solfive-71524.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856527882200:android:12b884d40e5332d136d4ad",
+        "android_client_info": {
+          "package_name": "com.tranviet.solfive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "856527882200-tckcosilghjehar2p4ka488kreaf56km.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tranviet.solfive",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "856527882200-477ghrnd0a8tomcn15e6hui07mj6pqqn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCm1NXq5-QYobwvGWyRFqThThstH3gwdPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "856527882200-477ghrnd0a8tomcn15e6hui07mj6pqqn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

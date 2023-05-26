@@ -135,12 +135,13 @@ const styles = StyleSheet.create({
   //list sheet
 
   sheetContainer: {
-    // borderRadius: 10,
+    borderRadius: 10,
     overflow: 'hidden',
     // marginHorizontal: 15,
   },
   bgStyle: {
     // paddingVertical: 15,
+    borderRadius: 10,
   },
   durationWrapper: {
     position: 'absolute',

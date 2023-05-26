@@ -32,6 +32,7 @@ const color = {
   purple: '#6626f9',
   turquoise: '#43bcff',
   blue: '#5865fc',
+  blueL: '#3c92ff',
 
   gray600: '#dddddd',
   red: '#f34359',
@@ -44,7 +45,10 @@ const gradientGroup = {
   mainL: [color.purple, color.turquoise],
   main: ['#cbdbff', '#f4def9', '#ffffff', '#ffffff', '#ffffff'],
   discover: function (x = '99') {
-    return [`#9dbbff${x}`, `#edc0f7${x}`, '#ffffff', '#ffffff', '#ffffff'];
+    return [`#43bcff${x}`, `#edc0f7${x}`, '#ffffff', '#ffffff', '#ffffff'];
+  },
+  user: function (x = '99') {
+    return [`#43bcff${x}`, '#ffffff', '#ffffff'];
   },
   blackToWhite: ['#30303000', '#ffffff'],
   blackWhiteBlack: ['#00000099', '#00000000', '#000000cc'],

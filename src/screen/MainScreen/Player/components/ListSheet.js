@@ -13,7 +13,7 @@ import {PlayListScreenListSheet} from '../../../PlayListSreen';
 
 function ListSheet() {
   const bottomSheetRef = useRef();
-  const snapPoints = useMemo(() => ['70%'], []);
+  const snapPoints = useMemo(() => ['60%'], []);
   const isShow = useSelector(state => state.player?.isShowListSheet);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,13 +24,20 @@ function ListSheet() {
     }
   }, [isShow]);
 
+  // const handleSheetChanges = value => {
+  //   if (value == -1) {
+  //     if (bottomSheetRef.current) {
+  //       bottomSheetRef.current.close();
+  //     }
+  //   }
+  // };
+
   return (
     <BottomSheet
       handleIndicatorStyle={{backgroundColor: color.mainTextL3}}
       enablePanDownToClose={true}
       ref={bottomSheetRef}
-      detached={true}
-      // bottomInset={range.tabbarHeight}
+      overDragResistanceFactor={0}
       snapPoints={snapPoints}
       style={[styles.sheetContainer]}
       backgroundStyle={[styles.bgStyle]}

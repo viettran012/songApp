@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     width: 140,
     // backgroundColor: color.blue,
     marginRight: 12,
-    borderRadius: 10,
+    borderRadius: 8,
   },
 
   playListDesWrapper: {
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     width: 290,
     backgroundColor: color.grayE,
     marginRight: 12,
-    borderRadius: 10,
+    borderRadius: 8,
     overflow: 'hidden',
     paddingHorizontal: 15,
     paddingVertical: 17,

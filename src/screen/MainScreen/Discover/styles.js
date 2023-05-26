@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 
   //slide
   sliderWrapper: {
-    borderRadius: 10,
+    borderRadius: 8,
     overflow: 'hidden',
   },
   sliderItem: {

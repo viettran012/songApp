@@ -13,6 +13,8 @@ function ActionPlayingIcon({song}) {
   const playingSong = useSelector(state => state.player?.isPlayingSong[songId]);
   const isPlaying = playingSong?.isPlaying;
 
+  // console.log(playingSong);
+
   useEffect(() => {
     if (
       animatedRef.current &&
@@ -22,7 +24,7 @@ function ActionPlayingIcon({song}) {
       animatedRef.current?.fadeOut(700);
     }
   });
-  return (
+  return isPlaying !== 'undefined' && isPlaying != undefined ? (
     <View style={styles.actionPlayingIconWrapper} pointerEvents="none">
       <Animatable.View
         ref={animatedRef}
@@ -37,7 +39,7 @@ function ActionPlayingIcon({song}) {
         />
       </Animatable.View>
     </View>
-  );
+  ) : null;
 }
 
 export default ActionPlayingIcon;

@@ -75,6 +75,9 @@ function SongItemList({song, playList, navigation}) {
   );
 
   const playSong = song => {
+    if (isPlaying) {
+      return;
+    }
     setTimeout(() => {
       setIsloading(false);
 
@@ -82,7 +85,6 @@ function SongItemList({song, playList, navigation}) {
     }, 100);
     setIsloading(true);
   };
-
   return (
     <Button
       style={[isPlaying ? {backgroundColor: color.grayE} : {}]}
@@ -104,19 +106,17 @@ function SongItemList({song, playList, navigation}) {
             {song?.artistsNames}
           </TextB>
         </View>
-        <Button round={true} underlayColor={true} onPress={() => {}}>
-          <View style={styles.songActionBtn}>
-            {isLoading ? (
-              <Loader />
-            ) : (
-              <IoniconsIcon
-                name="ellipsis-horizontal"
-                size={20}
-                color={color.mainTextL3}
-              />
-            )}
-          </View>
-        </Button>
+
+        <View style={styles.isPlayingSong}>
+          {isLoading ? (
+            <Loader />
+          ) : isPlaying ? (
+            <Image
+              source={require('../../../assets/imgIcon/music_icon_playing.png')}
+              style={styles.isPlayingSongImg}
+            />
+          ) : null}
+        </View>
       </View>
     </Button>
   );

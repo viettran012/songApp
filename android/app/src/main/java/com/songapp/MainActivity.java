@@ -1,4 +1,4 @@
-package com.songapp;
+package com.tranviet.solfive;
 
 import android.os.Bundle; // here
 import com.facebook.react.ReactActivity;

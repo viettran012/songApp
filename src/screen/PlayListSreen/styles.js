@@ -121,6 +121,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  isPlayingSong: {
+    height: 25,
+    width: 25,
+    marginRight: 10,
+  },
+
+  isPlayingSongImg: {
+    objectFit: 'contain',
+    flex: 1,
+    height: undefined,
+    width: undefined,
+  },
+
   //list
   songInfoAreaWrapperList: {
     flexDirection: 'row',

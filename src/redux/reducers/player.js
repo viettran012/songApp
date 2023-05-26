@@ -13,6 +13,10 @@ const player = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_CURR_SONG': {
       const newState = action.payload;
+      const currSongId = state?.currSong?.encodeId;
+      if (newState?.encodeId === currSongId) {
+        return {...state};
+      }
       return {
         ...state,
         currSong: newState,
