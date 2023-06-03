@@ -14,6 +14,8 @@ import {
 import {useEffect} from 'react';
 import {getSongInfoService} from '../../../../services/getSongService';
 import Lyric from './Lyric';
+import SONG_ACTION from '../../../../item/ACTION';
+import ActionButton from './ActionButton';
 
 function Action({song}) {
   const dispatch = useDispatch();
@@ -34,14 +36,7 @@ function Action({song}) {
         </View>
         <View style={styles.actionBottomArea}>
           <View style={styles.statisticalArea}>
-            <View style={styles.statisticalWrapper}>
-              <IoniconsIcon name="heart" size={28} color={color.white} />
-              <TextB style={styles.statisticalNumText}></TextB>
-            </View>
-            <View style={styles.statisticalWrapper}>
-              <FontistoIcon name="share-a" size={25} color={color.white} />
-              <TextB style={styles.statisticalNumText}></TextB>
-            </View>
+            <ActionButton song={song} />
           </View>
           <Button
             round={true}

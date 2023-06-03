@@ -7,6 +7,10 @@ import {useDispatch} from 'react-redux';
 import {setCurrPlayList, setCurrSong} from '../../redux/actions/player';
 import playListService from '../../services/playListService';
 import ListSheet from './Player/components/ListSheet';
+import {View} from 'react-native';
+import LoginSheet from '../../components/LoginSheet';
+import CreatePlayListSheet from '../../components/CreatePlayListSheet';
+import AddToPlayListSheet from '../../components/AddToPlayListSheet';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,14 +22,19 @@ function MainScreen() {
       .then(data => {
         if (data?.result == 1) {
           console.log('get player init data success');
-          const id = data?.data?.data?.items[3].items[0].encodeId;
+          const playlistFc = data?.data?.data?.items?.find(
+            item => item?.sectionType == 'playlist',
+          );
+          const id = playlistFc?.items[0]?.encodeId;
           playListService(id).then(data => {
-            dispatch(setCurrPlayList(data?.data?.data));
             dispatch(
-              setCurrSong({
-                ...data?.data?.data?.song?.items[0],
-                notPlay: true,
-              }),
+              setCurrPlayList([
+                data?.data?.data,
+                {
+                  ...data?.data?.data?.song?.items[0],
+                  notPlay: true,
+                },
+              ]),
             );
           });
         } else {
@@ -35,7 +44,12 @@ function MainScreen() {
   }, []);
 
   return (
-    <>
+    <View
+      style={{
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+      }}>
       <Tab.Navigator
         initialRouteName="Player"
         screenOptions={{headerShown: false, tabBarHideOnKeyboard: true}}
@@ -51,8 +65,7 @@ function MainScreen() {
           );
         })}
       </Tab.Navigator>
-      <ListSheet />
-    </>
+    </View>
   );
 }
 

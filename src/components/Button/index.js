@@ -7,12 +7,21 @@ const roundStyle = {
   // backgroundColor: color.blue,
 };
 
-function Button({children, onPress, round, underlayColor, ...props}) {
+function Button({
+  children,
+  onPress,
+  round,
+  underlayColor,
+  underLayColorHex,
+  ...props
+}) {
   return (
     <TouchableHighlight
       activeOpacity={0.8}
       underlayColor={
-        underlayColor ? color.transparentBlack : color?.transparent
+        underlayColor
+          ? underLayColorHex || color.transparentBlack
+          : color?.transparent
       }
       onPress={onPress}
       style={[round ? roundStyle : {}, props.style]}>

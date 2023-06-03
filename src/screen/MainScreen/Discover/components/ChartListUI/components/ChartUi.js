@@ -28,13 +28,16 @@ function ChartUI({data, index, navigation}) {
   }, []);
   const playSong = useCallback(song => {
     dispatch(
-      setCurrPlayList({
-        encodeId: data?.playlistId,
-        song: data,
-        title: data?.cc_title,
-      }),
+      setCurrPlayList([
+        {
+          encodeId: data?.playlistId,
+          song: data,
+          title: data?.cc_title,
+        },
+        song,
+      ]),
     );
-    dispatch(setCurrSong(song));
+
     navigation.navigate('Player');
   }, []);
   return (

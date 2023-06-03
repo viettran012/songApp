@@ -34,7 +34,9 @@ const bannerRender = ({item, index, navigation}) => {
   );
 };
 
-function Slider({data, navigation}) {
+function Slider({data_, navigation}) {
+  const data = data_?.items;
+  // console.log(data);
   const [currIndex, setIndex] = useState(0);
   const dispatch = useDispatch();
   const handleClickPlayList = useCallback(item => {
@@ -73,7 +75,7 @@ function Slider({data, navigation}) {
       />
 
       <View style={styles.paginationSlider}>
-        {data.map((item, index) => {
+        {data?.map((item, index) => {
           return (
             <View key={index} style={styles.paginationSliderDot}>
               <OcticonsIcon

@@ -14,15 +14,19 @@ import Button from '../../../components/Button';
 import getSongService from '../../../services/getSongService';
 import {useDispatch} from 'react-redux';
 import {setCurrPlayList, setCurrSong} from '../../../redux/actions/player';
+import {
+  addToPlayListSheet,
+  songActionSheet,
+} from '../../../redux/actions/appState';
+import {SONG_SHEET_ACTION} from '../../../item/ACTION';
 
-function SongItem({song, playList, navigation}) {
+function SongItem({song, playList, navigation, isDisplay}) {
   const dispatch = useDispatch();
   const [isLoading, setIsloading] = useState(false);
   const playSong = song => {
     setTimeout(() => {
       setIsloading(false);
-      dispatch(setCurrPlayList(playList));
-      dispatch(setCurrSong(song));
+      dispatch(setCurrPlayList([playList, song]));
       navigation.navigate('Player');
     }, 100);
     setIsloading(true);
@@ -31,6 +35,7 @@ function SongItem({song, playList, navigation}) {
   return (
     <Button
       onPress={() => {
+        if (isDisplay) return;
         playSong(song);
       }}>
       <View style={styles.songItemWrapper}>
@@ -48,19 +53,32 @@ function SongItem({song, playList, navigation}) {
             {song?.artistsNames}
           </TextB>
         </View>
-        <Button round={true} underlayColor={true} onPress={() => {}}>
-          <View style={styles.songActionBtn}>
-            {isLoading ? (
-              <Loader />
-            ) : (
-              <IoniconsIcon
-                name="ellipsis-horizontal"
-                size={20}
-                color={color.mainTextL3}
-              />
-            )}
-          </View>
-        </Button>
+        {isDisplay ? null : (
+          <Button
+            round={true}
+            underlayColor={true}
+            onPress={() => {
+              dispatch(
+                songActionSheet({
+                  isShow: Math.random(),
+                  songData: song,
+                  actions: SONG_SHEET_ACTION,
+                }),
+              );
+            }}>
+            <View style={styles.songActionBtn}>
+              {isLoading ? (
+                <Loader />
+              ) : (
+                <IoniconsIcon
+                  name="ellipsis-horizontal"
+                  size={20}
+                  color={color.mainTextL3}
+                />
+              )}
+            </View>
+          </Button>
+        )}
       </View>
     </Button>
   );

@@ -19,10 +19,22 @@ const color = {
   transparentBlack: 'rgba(0, 0, 0, 0.1)',
   transparentBlackL: 'rgba(0, 0, 0, 0.5)',
 
+  mainBorder: '#ababab',
+  mainBorderL1: '#CDCDCD',
+  mainBorderL2: '#dddddd',
+
+  heart: '#ff6879',
+  heartL1: '#e48db6',
+
+  inputBg: '#e1e1e1',
+
   gray: '#f6f6f6',
   grayE: '#eeeeee',
+  grayBg: '#f5f5f5',
 
   black: '#000000',
+  blackL1: '#373737',
+  blackL2: '#585858',
 
   white: '#ffffff',
   whiteL1: '#cacaca',
@@ -52,6 +64,15 @@ const gradientGroup = {
   },
   blackToWhite: ['#30303000', '#ffffff'],
   blackWhiteBlack: ['#00000099', '#00000000', '#000000cc'],
+  loginSheet: ['#43bcff99', '#cbdbff', '#f4def999', '#ffffff', '#ffffff'],
+  heart: [color.heart, color.heartL1],
+};
+
+const border = {
+  bottom: {
+    borderBottomColor: color.mainBorderL2,
+    borderBottomWidth: 1,
+  },
 };
 
 const range = {
@@ -59,6 +80,9 @@ const range = {
   headerHeight: 53,
 };
 
+const hardStyle = {
+  image: {objectFit: 'contain', flex: 1, height: undefined, width: undefined},
+};
 export {
   range,
   color,
@@ -66,4 +90,6 @@ export {
   gradientGroup,
   SCREEN_WIDTH,
   SCREEN_HEIGHT,
+  hardStyle,
+  border,
 };

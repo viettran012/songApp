@@ -63,72 +63,93 @@ function renderItem({item, index}) {
   );
 }
 
-const List = memo(function ({playListId}) {
-  const allState = store.getState();
-  if (!allState) return null;
+const List = memo(function () {
+  const dispatch = useDispatch();
+  const playListRef = useRef();
+  const allState = store?.getState();
+  const currSong = useSelector(state => state?.player?.currSong);
+  const playListId = useSelector(
+    state => state?.player?.currPlayList?.encodeId,
+  );
 
   const playList = allState?.player?.currPlayList;
   if (!playList) return null;
 
+  // console.log(currSong?.encodeId);
+  // console.log(playList?.encodeId);
+
+  const timeoutHandleScroll = useRef();
+  const scrollViewRef = useRef();
+
+  const scrollPageEvent = ({nativeEvent}) => {
+    clearTimeout(timeoutHandleScroll.current);
+    timeoutHandleScroll.current = setTimeout(() => {
+      const position = nativeEvent.contentOffset;
+      const index = Math.round(position.y / SCREEN_HEIGHT);
+      dispatch(setCurrSong({...playList?.song?.items[index], isScroll: true}));
+    }, 500);
+  };
+
+  let currIndex = playList?.song?.items?.findIndex(
+    song => currSong?.encodeId == song.encodeId,
+  );
+
+  currIndex = currIndex < 0 ? 0 : currIndex;
+
+  useEffect(() => {
+    if (!currSong || !playList) return;
+    if (currSong?.isScroll) return;
+
+    if (!currIndex && currIndex != 0) return;
+    if (scrollViewRef?.current) {
+      // console.log('scroll');
+      scrollViewRef.current?.scrollToIndex({
+        index: currIndex,
+        animated: true,
+      });
+    }
+  }, [currSong?.encodeId]);
+
+  useEffect(() => {
+    // console.log(playListId);
+  }, [playListId]);
+
   return (
     <FlatList
+      // initialScrollIndex={currIndex}
+      onMomentumScrollEnd={scrollPageEvent || (() => {})}
+      ref={scrollViewRef}
+      pagingEnabled={true}
+      showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}
       nestedScrollEnabled
       data={playList?.song?.items}
       renderItem={renderItem}
-      initialNumToRender={1}
+      initialNumToRender={2}
       maxToRenderPerBatch={100}
-      windowSize={2}
+      windowSize={5}
       removeClippedSubviews={false}
-      keyExtractor={(item, index) => index}
+      onScrollToIndexFailed={info => {
+        // const wait = new Promise(resolve => setTimeout(resolve, 500));
+        // wait.then(() => {
+        //   scrollViewRef.current?.scrollToIndex({
+        //     index: currIndex,
+        //     animated: true,
+        //   });
+        // });
+      }}
+      keyExtractor={(item, index) => item?.encodeId}
     />
   );
 });
 
 function Player() {
   const dispatch = useDispatch();
-  const timeoutHandleScroll = useRef();
-  const scrollViewRef = useRef();
-  const currSong = useSelector(state => state.player.currSong);
+
   const currPlayList = useSelector(
     state => state.player.currPlayList,
     shallowEqual,
   );
-  const [isLoading, setIsLoading] = useState(false);
-
-  const scrollPageEvent = ({nativeEvent}) => {
-    clearTimeout(timeoutHandleScroll.current);
-    timeoutHandleScroll.current = setTimeout(() => {
-      const position = nativeEvent.contentOffset;
-      const index = Math.round(nativeEvent.contentOffset.y / SCREEN_HEIGHT);
-      if (currPlayList?.song?.items)
-        dispatch(
-          setCurrSong({...currPlayList?.song?.items[index], isScroll: true}),
-        );
-    }, 500);
-  };
-
-  // useLayoutEffect(() => {
-  //   console.log('loadingtrue');
-  //   setIsLoading(true);
-  //   setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 100);
-  // }, [currPlayList?.encodeId]);
-
-  useEffect(() => {
-    if (currSong?.isScroll) return;
-    const currIndex = currPlayList?.song?.items?.findIndex(
-      song => currSong?.encodeId == song.encodeId,
-    );
-    if (!currIndex && currIndex != 0) return;
-    if (scrollViewRef) {
-      scrollViewRef.current.scrollTo({
-        x: 0,
-        y: currIndex * SCREEN_HEIGHT,
-        animated: true,
-      });
-    }
-  }, [currSong?.encodeId]);
 
   useFocusEffect(() => {
     dispatch(setIsPlayerPage(true));
@@ -139,19 +160,14 @@ function Player() {
   });
   return (
     <>
-      <DefaultLayout
-        scrollViewRef={scrollViewRef}
-        scrollPageEvent={scrollPageEvent}
-        isFullScreen={true}
-        header={<Header />}>
-        {currPlayList && !isLoading ? (
-          <>
-            <List playListId={currPlayList?.encodeId} />
-          </>
-        ) : (
-          <Loader backgroundColor={color.gray600} content="Đang tải" />
-        )}
-      </DefaultLayout>
+      {currPlayList ? (
+        <>
+          <Header />
+          <List />
+        </>
+      ) : (
+        <Loader backgroundColor={color.gray600} content="Đang tải" />
+      )}
     </>
   );
 }

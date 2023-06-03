@@ -47,7 +47,18 @@ const player = (state = initialState, action) => {
     }
     case 'SET_CURR_PLAYLIST': {
       const newState = action.payload;
-      return {...state, currPlayList: newState};
+      const songList = newState[0]?.song?.items;
+      // console.log(songList?.length);
+      let currIndex = songList?.findIndex(
+        song => newState[1]?.encodeId == song.encodeId,
+      );
+      const songCutList = songList?.splice(0, currIndex);
+      // console.log(songCutList?.length);
+      // console.log(songList?.length);
+
+      newState[0].song.items = [...songList, ...songCutList];
+
+      return {...state, currPlayList: newState[0], currSong: newState[1]};
     }
     case 'TOGGLE_PLAYING': {
       const newState = action.payload;

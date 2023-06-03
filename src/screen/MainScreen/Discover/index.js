@@ -4,13 +4,15 @@ import {HeaderWrapper} from '../../../layouts/Header';
 import styles from './styles';
 import Header from './components/Header';
 import discoverPageService from '../../../services/discoverPageService';
-import {useEffect, useState} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 import Slider from './components/Slider';
 import Loader from '../../../components/Loader';
 import PlayListUI from './components/PlayListUI';
 import ChillListUI from './components/ChillListUI';
 import ChartListUI from './components/ChartListUI';
 import SingleUI from './components/SingleUI';
+
+const i = 0;
 
 function Discover({navigation}) {
   const [data, setData] = useState();
@@ -44,35 +46,73 @@ function Discover({navigation}) {
           <Loader content="Đang tải" />
         ) : data ? (
           <>
-            <View style={styles.sliderWrapper}>
-              <Slider navigation={navigation} data={data[0]?.items} />
+            {data?.map((dataUI, index) => {
+              if (dataUI?.title == 'Chill') {
+                return (
+                  <Fragment key={index}>
+                    <View>
+                      <ChillListUI navigation={navigation} data={dataUI} />
+                    </View>
+                    <View>
+                      <ChartListUI navigation={navigation} />
+                    </View>
+                  </Fragment>
+                );
+              }
+              // if (index == 5) {
+              //   console.log('render chart');
+              //   return (
+              //     <View key={index}>
+              //       <ChartListUI navigation={navigation} />
+              //     </View>
+              //   );
+              // }
+
+              if (dataUI?.sectionType == 'banner') {
+                return (
+                  <View key={index} style={styles.sliderWrapper}>
+                    <Slider navigation={navigation} data_={dataUI} />
+                  </View>
+                );
+              }
+
+              if (dataUI?.sectionType == 'playlist') {
+                return (
+                  <View key={index}>
+                    <PlayListUI navigation={navigation} data={dataUI} />
+                  </View>
+                );
+              }
+
+              return null;
+            })}
+
+            {/* <View>
+              <ChillListUI navigation={navigation} data={data[3 + i]} />
             </View>
             <View>
-              <ChillListUI navigation={navigation} data={data[3]} />
-            </View>
-            <View>
-              <PlayListUI navigation={navigation} data={data[9]} />
+              <PlayListUI navigation={navigation} data={data[9 + i]} />
             </View>
             <View>
               <ChartListUI navigation={navigation} />
             </View>
 
             <View>
-              <PlayListUI navigation={navigation} data={data[5]} />
+              <PlayListUI navigation={navigation} data={data[5 + i]} />
             </View>
             <View>
-              <SingleUI navigation={navigation} data={data[2]} />
+              <SingleUI navigation={navigation} data={data[2 + i]} />
             </View>
             <View>
-              <PlayListUI navigation={navigation} data={data[4]} />
+              <PlayListUI navigation={navigation} data={data[4 + i]} />
             </View>
 
             <View>
-              <PlayListUI navigation={navigation} data={data[10]} />
+              <PlayListUI navigation={navigation} data={data[10 + i]} />
             </View>
             <View>
-              <PlayListUI navigation={navigation} data={data[11]} />
-            </View>
+              <PlayListUI navigation={navigation} data={data[11 + i]} />
+            </View> */}
           </>
         ) : null}
       </View>

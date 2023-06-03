@@ -3,6 +3,7 @@ import {
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
   STATUS_BAR_HEIGHT,
+  border,
   color,
   range,
 } from '../../../assets/interfaces';
@@ -39,11 +40,19 @@ const styles = StyleSheet.create({
   },
   headerWrapper: {
     // backgroundColor: color.blue,
-    height: '100%',
+    height: range.headerHeight + STATUS_BAR_HEIGHT,
+    // backgroundColor: color.gray,
+    paddingTop: STATUS_BAR_HEIGHT,
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     flexDirection: 'row',
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    zIndex: 999,
+    elevation: 999,
   },
   titleHeaderText: {
     fontSize: 17,
@@ -180,6 +189,40 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,
+  },
+
+  //song option
+  songOptionWrapper: {
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    ...border.bottom,
+    paddingVertical: 7,
+    paddingBottom: 7,
+    // marginBottom: 7,
+  },
+  optionTconWrapperBtn: {
+    height: 50,
+    width: 50,
+    backgroundColor: color?.grayE,
+    borderRadius: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  songOptionItemWrapper: {
+    width: 80,
+    alignItems: 'center',
+    paddingVertical: 7,
+    paddingHorizontal: 7,
+    borderRadius: 8,
+  },
+  optionSongTitle: {
+    color: color.mainTextL1,
+    fontSize: 12,
+    textAlign: 'center',
+  },
+  songOptionTitleWrapper: {
+    // flex: 1,
+    marginTop: 7,
   },
 });
 

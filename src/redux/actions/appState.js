@@ -5,6 +5,13 @@ const setFocusPlayList = type => {
   };
 };
 
+const setLoaderMaskShow = type => {
+  return {
+    type: 'SET_LOADER_MASK_SHOW',
+    payload: type,
+  };
+};
+
 const setHeaderOpacity = type => {
   return {
     type: 'SET_HEADER_OPACITY',
@@ -19,4 +26,56 @@ const setIsPlayerPage = type => {
   };
 };
 
-export {setFocusPlayList, setHeaderOpacity, setIsPlayerPage};
+const showLoginSheet = type => {
+  return {
+    type: 'SHOW_LOGIN_SHEET',
+    payload: type,
+  };
+};
+
+const showCreatePlaylistSheet = type => {
+  return {
+    type: 'SHOW_CREATE_PLAYLIST_SHEET',
+    payload: type,
+  };
+};
+
+const setShowToast = type => {
+  return {
+    type: 'SET_SHOW_TOAST',
+    payload: type,
+  };
+};
+
+const addToPlayListSheet = type => {
+  return {
+    type: 'ADD_TO_PLAYLIST_SHEET',
+    payload: type,
+  };
+};
+
+const songActionSheet = type => {
+  return {
+    type: 'SONG_ACTION_SHEET',
+    payload: type,
+  };
+};
+const confirmSheet = type => {
+  return {
+    type: 'CONFIRM_SHEET',
+    payload: type,
+  };
+};
+
+export {
+  setFocusPlayList,
+  setHeaderOpacity,
+  setIsPlayerPage,
+  showLoginSheet,
+  setLoaderMaskShow,
+  setShowToast,
+  showCreatePlaylistSheet,
+  addToPlayListSheet,
+  songActionSheet,
+  confirmSheet,
+};

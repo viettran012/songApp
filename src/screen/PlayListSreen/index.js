@@ -103,7 +103,10 @@ function PlayListScreen({navigation}) {
 
                 <Button
                   onPress={() => {
-                    console.log('ok');
+                    dispatch(
+                      setCurrPlayList([playList, playList?.song?.items[0]]),
+                    );
+                    navigation.navigate('Player');
                   }}>
                   <LinearGradient
                     style={styles.playAllBtn}

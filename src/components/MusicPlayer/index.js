@@ -83,6 +83,9 @@ function MusicPlayer() {
   useEffect(() => {
     const songId = currSong?.encodeId;
     if (!songId) return;
+    if (whoosh.current) {
+      whoosh.current.release();
+    }
     getSongService(songId).then(async data => {
       if (data?.result == 1) {
         getSongLyricService(songId).then(data => {

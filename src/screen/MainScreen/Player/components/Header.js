@@ -11,20 +11,20 @@ function Header() {
   const currPlayList = useSelector(state => state.player.currPlayList);
 
   return (
-    <HeaderWrapper>
-      <View style={styles.headerWrapper}>
-        <View style={styles.titleHeaderWrapper}>
-          <TextBB numLine={1} style={styles.titleHeaderText}>
-            {currPlayList?.title}
-          </TextBB>
-        </View>
-        <Button round={true} underlayColor={true} onPress={() => {}}>
-          <View style={styles.buttonWrapper}>
-            <IoniconsIcon name="search-outline" size={25} color={color.white} />
-          </View>
-        </Button>
+    // <HeaderWrapper>
+    <View style={styles.headerWrapper}>
+      <View style={styles.titleHeaderWrapper}>
+        <TextBB numLine={1} style={styles.titleHeaderText}>
+          {currPlayList?.title}
+        </TextBB>
       </View>
-    </HeaderWrapper>
+      <Button round={true} underlayColor={true} onPress={() => {}}>
+        <View style={styles.buttonWrapper}>
+          <IoniconsIcon name="search-outline" size={25} color={color.white} />
+        </View>
+      </Button>
+    </View>
+    // </HeaderWrapper>
   );
 }
 
