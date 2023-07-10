@@ -26,6 +26,7 @@ import AddToPlayListSheet from './src/components/AddToPlayListSheet';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import SongActionSheet from './src/components/SongActionSheet';
 import ConfirmSheet from './src/components/ConfirmSheet';
+import PlayListActionSheet from './src/components/PlayListActionSheet';
 
 const Stack = createStackNavigator();
 
@@ -70,6 +71,7 @@ function App() {
 
             <ListSheet />
             <SongActionSheet />
+            <PlayListActionSheet />
             <AddToPlayListSheet />
             <CreatePlayListSheet />
             <LoginSheet />

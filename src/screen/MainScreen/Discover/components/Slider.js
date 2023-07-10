@@ -1,6 +1,7 @@
 import Carousel from 'react-native-reanimated-carousel';
 import {SCREEN_WIDTH, color} from '../../../../assets/interfaces';
 import {View, Text, Image} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import styles from '../styles';
 import {OcticonsIcon} from '../../../../assets/icons';
 import {useState} from 'react';
@@ -23,11 +24,12 @@ const bannerRender = ({item, index, navigation}) => {
         handleClickPlayList(item);
       }}
       style={styles.sliderItem}>
-      <Image
+      <FastImage
         style={styles.bannerImg}
         // resizeMode="contain"
         source={{
           uri: item?.banner,
+          priority: FastImage.priority.normal,
         }}
       />
     </Button>
@@ -62,11 +64,12 @@ function Slider({data_, navigation}) {
                 handleClickPlayList(item);
               }}
               style={styles.sliderItem}>
-              <Image
+              <FastImage
                 style={styles.bannerImg}
                 // resizeMode="contain"
                 source={{
                   uri: item?.banner,
+                  priority: FastImage.priority.normal,
                 }}
               />
             </Button>

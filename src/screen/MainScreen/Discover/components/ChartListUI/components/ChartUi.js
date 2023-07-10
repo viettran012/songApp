@@ -17,6 +17,7 @@ import {
   setCurrPlayList,
   setCurrSong,
 } from '../../../../../../redux/actions/player';
+import FastImage from 'react-native-fast-image';
 
 function ChartUI({data, index, navigation}) {
   const dispatch = useDispatch();
@@ -66,9 +67,10 @@ function ChartUI({data, index, navigation}) {
               }}>
               <View style={styles.songItemWrapper}>
                 <View style={styles.thumbnailSongWrapper}>
-                  <Image
+                  <FastImage
                     source={{
                       uri: item?.thumbnailM,
+                      priority: FastImage.priority.normal,
                     }}
                     style={[styles.thumbnailSong]}
                   />

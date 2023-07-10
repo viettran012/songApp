@@ -81,10 +81,6 @@ function SongActionSheet() {
 
       if (bottomSheetRef.current) {
         bottomSheetRef.current.snapToIndex(0);
-        if (inputRef?.current) {
-          inputRef.current?.focus();
-          inputRef.current?.clear();
-        }
       }
     } else {
       closeSheet();
@@ -94,10 +90,6 @@ function SongActionSheet() {
   const handleSheetChanges = value => {
     if (value == -1) {
       backHandlerRef.current?.remove();
-
-      if (inputRef?.current) {
-        inputRef.current?.blur();
-      }
     }
   };
 

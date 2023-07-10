@@ -5,6 +5,7 @@ import styles from './styles';
 import {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 import {setFocusPlayList} from '../../../../../redux/actions/appState';
+import FastImage from 'react-native-fast-image';
 
 function PlayListUI({data, navigation}) {
   const dispatch = useDispatch();
@@ -33,11 +34,12 @@ function PlayListUI({data, navigation}) {
                 }}
                 key={index}>
                 <View style={[index == 0 ? {marginLeft: 20} : {}]}>
-                  <Image
+                  <FastImage
                     source={{
                       uri: item?.thumbnailM,
+                      priority: FastImage.priority.normal,
                     }}
-                    style={[styles.playListItemWraper]}></Image>
+                    style={[styles.playListItemWraper]}></FastImage>
                   <View style={[styles.playListDesWrapper]}>
                     <TextB numLine={2} style={styles.titleText}>
                       {item?.title}

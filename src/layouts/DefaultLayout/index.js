@@ -1,12 +1,13 @@
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {color, gradientGroup, STATUS_BAR_HEIGHT} from '../../assets/interfaces';
 import LinearGradient from 'react-native-linear-gradient';
-import {useCallback, useState} from 'react';
-import {useDispatch} from 'react-redux';
-import {setHeaderOpacity} from '../../redux/actions/appState';
+import {useCallback, useEffect, useState, createContext} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {setGradientValue, setHeaderOpacity} from '../../redux/actions/appState';
 import Button from '../../components/Button';
 import {EntypoIcon} from '../../assets/icons';
 const maxScrollValue = 300;
+export const CallBackScrollContext = createContext();
 
 function DefaultLayout({
   children,
@@ -21,17 +22,22 @@ function DefaultLayout({
   scrollViewRef,
   rightButton,
   onRightButtonPress,
+  notScrollView,
 }) {
+  const Wrapper = notScrollView ? View : ScrollView;
   const dispatch = useDispatch();
   const [gradientValue, setGradientValue] = useState(99);
   const [headerOpacity, setHeaderOpacity] = useState(0);
+  // const gradientValue = useSelector(state => state?.appState?.gradientValue);
+  // const headerOpacity = useSelector(state => state?.appState?.headerOpacity);
 
   const goBack = useCallback(() => {
     if (navigation) {
       navigation.goBack();
     }
   }, []);
-  const handleScroll = useCallback(event => {
+
+  const handleBodyScroll = useCallback(event => {
     const scroll = event.nativeEvent.contentOffset.y || 0;
     let value = ((maxScrollValue - scroll) / maxScrollValue) * 99;
     let opacity = (scroll / maxScrollValue) * 1;
@@ -100,7 +106,7 @@ function DefaultLayout({
               }
             : {},
         ]}>
-        <ScrollView
+        <Wrapper
           ref={scrollViewRef}
           pagingEnabled={scrollPageEvent ? true : false}
           // decelerationRate={1}
@@ -109,11 +115,14 @@ function DefaultLayout({
           showsVerticalScrollIndicator={false}
           persistentScrollbar={true}
           contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
+          style={{flex: 1}}
           onScroll={
-            gradient || isChangeHeaderOpacity ? handleScroll : () => {}
+            gradient || isChangeHeaderOpacity ? handleBodyScroll : () => {}
           }>
-          {children}
-        </ScrollView>
+          <CallBackScrollContext.Provider value={handleBodyScroll}>
+            {children}
+          </CallBackScrollContext.Provider>
+        </Wrapper>
       </View>
     </LinearGradient>
   );

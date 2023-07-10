@@ -1,7 +1,8 @@
 import {color} from '../assets/interfaces';
-import {addToPlayListSheet} from '../redux/actions/appState';
+import {addToPlayListSheet, setLoaderMaskShow} from '../redux/actions/appState';
 import {showListSheet} from '../redux/actions/player';
 import store from '../redux/store';
+import {updatePlayListService} from '../services/createPlayListService';
 import {likeSong, removeToPlaylist} from '../services/userServices';
 import confirmCallback from '../utils/confirmCallback';
 import loginCallback from '../utils/loginCallback';
@@ -233,6 +234,73 @@ const SONG_USER_FV_SHEET_ACTION = [
   },
 ];
 
+const PLAYLIST_ACTION = [
+  {
+    id: 'songMananger',
+    title: 'Quản lý bài hát',
+    iconLib: IoniconsIcon,
+    iconName: 'list-outline',
+    iconSize: 24,
+    iconColor: color.mainTextL2,
+    callback: function () {},
+  },
+
+  {
+    id: 'edit',
+    title: 'Chỉnh sửa playlist',
+    iconLib: AntDesignIcon,
+    iconName: 'edit',
+    iconSize: 24,
+    iconColor: color.mainTextL2,
+    ignoreId: 'favorite',
+    callback: function () {},
+  },
+
+  {
+    id: 'delete',
+    title: 'Xoá playlist',
+    iconLib: AntDesignIcon,
+    iconName: 'delete',
+    iconSize: 24,
+    iconColor: color.mainTextL2,
+    ignoreId: 'favorite',
+    callback: async function (payload) {
+      const playList = payload?.playlistData;
+      confirmCallback({
+        title: 'Xoá playlist ?',
+        subTitle: `Bạn có chắc chắn muốn xoá playlist ${playList?.title}`,
+        confirmText: 'Xoá',
+        cancelText: 'Huỷ',
+        callback: () => {
+          store.dispatch(
+            setLoaderMaskShow({
+              isShow: true,
+              content: 'Đang xoá playlist...',
+            }),
+          );
+          updatePlayListService({
+            is_deleted: 1,
+            encodeId: playList?.encodeId,
+          })
+            .then(async fb => {
+              store.dispatch(setLoaderMaskShow(false));
+              await preUserData();
+
+              if (payload?.asyncCallback) {
+                payload?.asyncCallback(fb);
+              }
+            })
+            .catch(error => {
+              store.dispatch(setLoaderMaskShow(false));
+
+              return error;
+            });
+        },
+      });
+    },
+  },
+];
+
 export default SONG_ACTION;
 
 export {
@@ -240,4 +308,5 @@ export {
   SONG_SHEET_ACTION,
   SONG_USER_SHEET_ACTION,
   SONG_USER_FV_SHEET_ACTION,
+  PLAYLIST_ACTION,
 };

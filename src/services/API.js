@@ -1,5 +1,5 @@
-// const DOMAIN = 'https://apisolfive.app.tranviet.site';
-const DOMAIN = 'http://192.168.1.8:5000';
+const DOMAIN = 'https://apisolfive.app.tranviet.site';
+// const DOMAIN = 'http://192.168.2.55:5000';
 
 const API = {
   GET_DISCOVER_API: DOMAIN + '/api/get/home',
@@ -9,6 +9,7 @@ const API = {
   SONG_INFO_DETAILT_API: DOMAIN + '/api/get/song/info',
   SONG_INFO_LYRIC_API: DOMAIN + '/api/get/song/lyric',
   CREATE_PLAYLIST: DOMAIN + '/user/playlist/create',
+  UPDATE_PLAYLIST: DOMAIN + '/user/playlist/update',
   LIKE_SONG: DOMAIN + '/user/song/like',
   ADD_TO_PLAYLIST: DOMAIN + '/user/playlist/add/song',
   REMOVE_TO_PLAYLIST: DOMAIN + '/user/playlist/remove/song',

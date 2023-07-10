@@ -6,6 +6,7 @@ const initialState = {
   isLoaderMaskShow: false,
   isShowToast: false,
   isShowCreatePlaylistSheet: false,
+  gradientValue: 99,
   addToPlayListSheet: {
     isShow: false,
     songData: undefined,
@@ -13,6 +14,10 @@ const initialState = {
   songActionSheet: {
     isShow: false,
     songData: undefined,
+  },
+  playlistActionSheet: {
+    isShow: false,
+    playListData: undefined,
   },
   removeToPlayListSheet: {
     isShow: false,
@@ -30,6 +35,14 @@ const appState = (state = initialState, action) => {
       const newState = action.payload;
       return {...state, focusedPlayList: newState};
     }
+    case 'SET_HEADER_OPACITY': {
+      const newState = action.payload;
+      return {...state, headerOpacity: newState};
+    }
+    case 'SET_GRADIENT_VALUE': {
+      const newState = action.payload;
+      return {...state, gradientValue: newState};
+    }
     case 'ADD_TO_PLAYLIST_SHEET': {
       const newState = action.payload;
       return {...state, addToPlayListSheet: newState};
@@ -41,6 +54,10 @@ const appState = (state = initialState, action) => {
     case 'SONG_ACTION_SHEET': {
       const newState = action.payload;
       return {...state, songActionSheet: newState};
+    }
+    case 'PLAYLIST_ACTION_SHEET': {
+      const newState = action.payload;
+      return {...state, playlistActionSheet: newState};
     }
     case 'SET_SHOW_TOAST': {
       const newState = action.payload;

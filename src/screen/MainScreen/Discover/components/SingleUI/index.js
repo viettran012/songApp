@@ -3,6 +3,7 @@ import {View, ScrollView, Image, ImageBackground} from 'react-native';
 import Button from '../../../../../components/Button';
 import styles from './styles';
 import chunkArray from '../../../../../utils/chunkArray';
+import FastImage from 'react-native-fast-image';
 
 function SingleUI({data}) {
   const items = chunkArray(data?.items?.all, 3);
@@ -29,9 +30,10 @@ function SingleUI({data}) {
                     <Button key={index + 100}>
                       <View key={index} style={styles.songItemWrapper}>
                         <View style={styles.thumbnailSongWrapper}>
-                          <Image
+                          <FastImage
                             source={{
                               uri: item?.thumbnailM,
+                              priority: FastImage.priority.normal,
                             }}
                             style={[styles.thumbnailSong]}
                           />

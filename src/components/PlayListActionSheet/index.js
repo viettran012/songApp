@@ -7,6 +7,7 @@ import BottomSheet, {
 } from '@gorhom/bottom-sheet';
 import {
   STATUS_BAR_HEIGHT,
+  border,
   color,
   gradientGroup,
   hardStyle,
@@ -34,18 +35,43 @@ import {preUserData} from '../../utils/prepareData';
 import PlayListList from '../../screen/MainScreen/MyPage/components/PlayListList';
 import {addToPlaylist} from '../../services/userServices';
 import {DrawerLayout} from 'react-native-gesture-handler';
+import SongItem from '../../screen/PlayListSreen/components/SongItem';
+import {PLAYLIST_ACTION, SONG_SHEET_ACTION} from '../../item/ACTION';
 
-function AddToPlayListSheet() {
+function PlayListActionSheet() {
   const bottomSheetRef = useRef();
   const inputRef = useRef();
   const backHandlerRef = useRef();
-  const snapPoints = useMemo(() => [SCREEN_HEIGHT - STATUS_BAR_HEIGHT], []);
-  const addToPlayListSheetState = useSelector(
-    state => state.appState?.addToPlayListSheet,
-  );
+  const snapPoints = useMemo(() => ['70%'], []);
+  const songSheet = useSelector(state => state.appState?.playlistActionSheet);
+  const playlistData = songSheet?.playListData;
+
+  const handlePressOption = async action => {
+    const callback = action?.callback;
+    closeSheet();
+    if (callback) {
+      const fb = await callback({
+        playlistData,
+        asyncCallback: fb => {
+          if (fb?.result == 1) {
+            if (songSheet?.navigation) {
+              songSheet?.navigation?.goBack();
+            }
+          }
+        },
+        callback: () => {},
+      });
+    }
+  };
+
   const dispatch = useDispatch();
+  const closeSheet = () => {
+    if (bottomSheetRef.current) {
+      bottomSheetRef.current.close();
+    }
+  };
   useEffect(() => {
-    if (addToPlayListSheetState?.isShow) {
+    if (songSheet?.isShow) {
       backHandlerRef.current = BackHandler.addEventListener(
         'hardwareBackPress',
         () => {
@@ -56,50 +82,18 @@ function AddToPlayListSheet() {
 
       if (bottomSheetRef.current) {
         bottomSheetRef.current.snapToIndex(0);
-        if (inputRef?.current) {
-          inputRef.current?.focus();
-          inputRef.current?.clear();
-        }
       }
     } else {
-      if (bottomSheetRef.current) {
-        bottomSheetRef.current.close();
-      }
+      closeSheet();
     }
-  }, [addToPlayListSheetState?.isShow]);
+  }, [songSheet?.isShow]);
 
   const handleSheetChanges = value => {
     if (value == -1) {
       backHandlerRef.current?.remove();
-
-      if (inputRef?.current) {
-        inputRef.current?.blur();
-      }
     }
   };
 
-  const handlePlaylistPicker = playList => {
-    const playlistId = playList?.encodeId;
-    const song = addToPlayListSheetState?.songData;
-    if (song && playlistId) {
-      dispatch(addToPlayListSheet({isShow: false}));
-      addToPlaylist({...song, playlistId})
-        .then(fb => {
-          if (fb.result == 1) {
-            showToast({
-              content: 'Đã thêm 1 bài hát vào playlist',
-              duration: 2000,
-            });
-            preUserData();
-          } else {
-            showToast({content: 'Không thể thêm vào playlist', duration: 2000});
-          }
-        })
-        .catch(error => {
-          showToast({content: 'Không thể thêm vào playlist', duration: 2000});
-        });
-    }
-  };
   return (
     <BottomSheet
       index={-1}
@@ -120,23 +114,54 @@ function AddToPlayListSheet() {
           {...props}
         />
       ))}>
-      <HeaderSheet
-        sheetRef={bottomSheetRef?.current}
-        title="Thêm vào playlist"
-      />
-      <TextB
-        style={{
-          color: color?.mainTextL1,
-          paddingHorizontal: 15,
-          marginBottom: 15,
-        }}>
-        Chọn playlist để thêm bài hát vào
-      </TextB>
-      <BottomSheetScrollView>
-        <PlayListList isPicker={{callback: handlePlaylistPicker}} />
+      {songSheet?.playListData ? (
+        <View style={styles.playlistItemW}>
+          <View style={styles.playlistThumbWrappper}>
+            <Image
+              source={{
+                uri: playlistData?.thumbnailM,
+              }}
+              style={hardStyle.image}
+            />
+          </View>
+          <View>
+            <TextBB style={styles.playlistTitleText}>
+              {playlistData?.title}
+            </TextBB>
+            <TextB>{playlistData?.song?.items?.length} bài hát</TextB>
+          </View>
+        </View>
+      ) : null}
+      <BottomSheetScrollView style={{paddingVertical: 10}}>
+        {PLAYLIST_ACTION?.filter(
+          action => action?.ignoreId != playlistData?.encodeId,
+        )?.map((action, index) => {
+          const IconLib = action?.iconLib;
+          return (
+            <Button
+              onPress={() => {
+                handlePressOption(action);
+              }}
+              key={index}
+              style={styles?.actionItemWrapper}>
+              <>
+                <View style={styles?.iconWrapper}>
+                  <IconLib
+                    name={action?.iconName}
+                    size={action?.iconSize}
+                    color={color.mainText}
+                  />
+                </View>
+                <View style={styles.actionTitleWrapper}>
+                  <TextB style={styles.actionTitle}>{action?.title}</TextB>
+                </View>
+              </>
+            </Button>
+          );
+        })}
       </BottomSheetScrollView>
     </BottomSheet>
   );
 }
 
-export default memo(AddToPlayListSheet);
+export default memo(PlayListActionSheet);

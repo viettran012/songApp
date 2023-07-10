@@ -16,6 +16,7 @@ import {useDispatch} from 'react-redux';
 import {setCurrPlayList, setCurrSong} from '../../redux/actions/player';
 import SongItem, {SongItemList} from './components/SongItem';
 import store from '../../redux/store';
+import {playlistActionSheet} from '../../redux/actions/appState';
 
 function UserPlayListScreen({navigation, route}) {
   let playList;
@@ -44,6 +45,22 @@ function UserPlayListScreen({navigation, route}) {
       isBackButton={true}
       isFullScreen={true}
       navigation={navigation}
+      rightButton={
+        <IoniconsIcon
+          name="ellipsis-horizontal"
+          size={25}
+          color={color.mainText}
+        />
+      }
+      onRightButtonPress={() => {
+        dispatch(
+          playlistActionSheet({
+            isShow: Math.random(),
+            playListData: playList,
+            navigation,
+          }),
+        );
+      }}
       header={<HeaderBack title={playList?.title} />}>
       {isLoading ? (
         <Loader content="Đang tải" />

@@ -13,4 +13,17 @@ async function createPlayListService(body) {
   });
 }
 
+async function updatePlayListService(body) {
+  const API_ = API.UPDATE_PLAYLIST;
+
+  const userInfo = await storage.getItem('userInfo');
+  const userId = userInfo?.user?.uid;
+
+  return post(API_, {...body, userId}).then(data => {
+    return data;
+  });
+}
+
 export default createPlayListService;
+
+export {updatePlayListService};

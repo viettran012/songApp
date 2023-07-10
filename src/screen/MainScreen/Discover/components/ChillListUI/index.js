@@ -6,6 +6,7 @@ import chunkArray from '../../../../../utils/chunkArray';
 import {useDispatch} from 'react-redux';
 import {useCallback} from 'react';
 import {setFocusPlayList} from '../../../../../redux/actions/appState';
+import FastImage from 'react-native-fast-image';
 
 function ChillListUI({data, navigation}) {
   const items = chunkArray(data?.items, 2);

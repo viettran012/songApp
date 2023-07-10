@@ -6,7 +6,7 @@ import {HeaderBack} from '../../../layouts/Header';
 import styles from '../styles';
 import LinearGradient from 'react-native-linear-gradient';
 import {color, gradientGroup} from '../../../assets/interfaces';
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useState, memo} from 'react';
 import Loader from '../../../components/Loader';
 import playListService from '../../../services/playListService';
 import {FontistoIcon, IoniconsIcon} from '../../../assets/icons';
@@ -19,6 +19,7 @@ import {
   songActionSheet,
 } from '../../../redux/actions/appState';
 import {SONG_SHEET_ACTION} from '../../../item/ACTION';
+import FastImage from 'react-native-fast-image';
 
 function SongItem({song, playList, navigation, isDisplay}) {
   const dispatch = useDispatch();
@@ -40,9 +41,10 @@ function SongItem({song, playList, navigation, isDisplay}) {
       }}>
       <View style={styles.songItemWrapper}>
         <View style={styles.songThumbnailWrapper}>
-          <Image
+          <FastImage
             source={{
               uri: song?.thumbnailM,
+              priority: FastImage.priority.normal,
             }}
             style={styles.songThumbNailImg}
           />
@@ -111,9 +113,10 @@ function SongItemList({song, playList, navigation}) {
       }}>
       <View style={[styles.songItemWrapper, {marginBottom: 7, marginTop: 7}]}>
         <View style={styles.songThumbnailWrapper}>
-          <Image
+          <FastImage
             source={{
               uri: song?.thumbnailM,
+              priority: FastImage.priority.normal,
             }}
             style={styles.songThumbNailImg}
           />
@@ -129,7 +132,7 @@ function SongItemList({song, playList, navigation}) {
           {isLoading ? (
             <Loader />
           ) : isPlaying ? (
-            <Image
+            <FastImage
               source={require('../../../assets/imgIcon/music_icon_playing.png')}
               style={styles.isPlayingSongImg}
             />
@@ -140,5 +143,5 @@ function SongItemList({song, playList, navigation}) {
   );
 }
 
-export default SongItem;
+export default memo(SongItem);
 export {SongItemList};

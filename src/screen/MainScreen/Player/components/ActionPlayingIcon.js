@@ -1,6 +1,6 @@
-import {useEffect, useRef} from 'react';
+import {memo, useEffect, useRef} from 'react';
 import styles from '../styles';
-import {View} from 'react-native';
+import {Animated, View} from 'react-native';
 const {IoniconsIcon} = require('../../../../assets/icons');
 const {color} = require('../../../../assets/interfaces');
 import * as Animatable from 'react-native-animatable';
@@ -11,6 +11,8 @@ function ActionPlayingIcon({song}) {
   const songId = song.encodeId;
 
   const playingSong = useSelector(state => state.player?.isPlayingSong[songId]);
+  const scale = useRef(new Animated.Value(1)).current;
+
   const isPlaying = playingSong?.isPlaying;
 
   // console.log(playingSong);
@@ -22,10 +24,19 @@ function ActionPlayingIcon({song}) {
       isPlaying != undefined
     ) {
       animatedRef.current?.fadeOut(700);
+      scale.setValue(1);
+
+      Animated.timing(scale, {
+        toValue: 1.5,
+        duration: 700,
+        useNativeDriver: false,
+      }).start();
     }
   });
   return isPlaying !== 'undefined' && isPlaying != undefined ? (
-    <View style={styles.actionPlayingIconWrapper} pointerEvents="none">
+    <Animated.View
+      style={[styles.actionPlayingIconWrapper, {transform: [{scale: scale}]}]}
+      pointerEvents="none">
       <Animatable.View
         ref={animatedRef}
         style={styles.actionPlayingIcon}
@@ -38,8 +49,8 @@ function ActionPlayingIcon({song}) {
           color={color.white}
         />
       </Animatable.View>
-    </View>
+    </Animated.View>
   ) : null;
 }
 
-export default ActionPlayingIcon;
+export default memo(ActionPlayingIcon);

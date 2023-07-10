@@ -6,6 +6,7 @@ const discoverIcon = require('../assets/imgIcon/tabbarIcon_discover.png');
 const discoverIconActive = require('../assets/imgIcon/tabbarIcon_discover_active.png');
 const myPageIcon = require('../assets/imgIcon/tabbarIcon_mypage.png');
 const myPageIconActive = require('../assets/imgIcon/tabbarIcon_mypage_active.png');
+import FastImage from 'react-native-fast-image';
 
 const styles = StyleSheet.create({
   iconStyle: {
@@ -27,18 +28,18 @@ const TABBAR_ITEMS = [
     label: 'Khám phá',
     Icon: (
       <View style={styles.iconWrapper}>
-        <Image
+        <FastImage
           resizeMode="contain"
           style={styles.iconStyle}
-          source={discoverIcon}></Image>
+          source={discoverIcon}></FastImage>
       </View>
     ),
     FocusIcon: (
       <View style={styles.iconWrapper}>
-        <Image
+        <FastImage
           resizeMode="contain"
           style={styles.iconStyle}
-          source={discoverIconActive}></Image>
+          source={discoverIconActive}></FastImage>
       </View>
     ),
   },
@@ -55,18 +56,18 @@ const TABBAR_ITEMS = [
     label: 'Của tui',
     Icon: (
       <View style={styles.iconWrapper}>
-        <Image
+        <FastImage
           resizeMode="contain"
           style={styles.iconStyle}
-          source={myPageIcon}></Image>
+          source={myPageIcon}></FastImage>
       </View>
     ),
     FocusIcon: (
       <View style={styles.iconWrapper}>
-        <Image
+        <FastImage
           resizeMode="contain"
           style={styles.iconStyle}
-          source={myPageIconActive}></Image>
+          source={myPageIconActive}></FastImage>
       </View>
     ),
   },

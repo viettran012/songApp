@@ -60,6 +60,12 @@ const songActionSheet = type => {
     payload: type,
   };
 };
+const playlistActionSheet = type => {
+  return {
+    type: 'PLAYLIST_ACTION_SHEET',
+    payload: type,
+  };
+};
 const confirmSheet = type => {
   return {
     type: 'CONFIRM_SHEET',
@@ -67,9 +73,17 @@ const confirmSheet = type => {
   };
 };
 
+const setGradientValue = type => {
+  return {
+    type: 'SET_GRADIENT_VALUE',
+    payload: type,
+  };
+};
+
 export {
   setFocusPlayList,
   setHeaderOpacity,
+  setGradientValue,
   setIsPlayerPage,
   showLoginSheet,
   setLoaderMaskShow,
@@ -78,4 +92,5 @@ export {
   addToPlayListSheet,
   songActionSheet,
   confirmSheet,
+  playlistActionSheet,
 };
